@@ -1,0 +1,40 @@
+using UnityEngine;
+using System.Collections;
+
+public class event_manager : MonoBehaviour {
+
+	public delegate void inputs();
+	public static event inputs walk;
+	public static event inputs jump;
+	public static event inputs slowDown;
+	static float pAxis; 
+
+	// Use this for initialization
+	void Start () {
+	
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		pAxis = Input.GetAxis("Horizontal");
+
+		if(pAxis > 0 ||  pAxis < 0)
+		{
+			if(walk!=null)
+				walk();
+		} else {
+			slowDown();
+		}
+
+		if( Input.GetButtonDown("Jump") )
+		{
+			if(jump!=null)
+				jump();
+		}
+	}
+
+	public static float inputInfo( )
+	{
+		return pAxis;
+	}
+}
